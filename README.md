@@ -49,6 +49,7 @@ Do not use a build that shows `Memory only` for real field data.
 ```text
 plot-weasel/
 ├── README.md
+├── PlotWeasel_How_To_Guide_v2026-07-10.html
 ├── .gitignore
 ├── FieldLogger/
 ├── Desktop/
@@ -56,12 +57,8 @@ plot-weasel/
 
 ## Documentation
 
-Key documents are in `docs/`.
-
-- `docs/PlotWeasel_How_To_Guide_Current.html` is the editable current guide.
+Key document is in `plotweasel/`.
 - `docs/releases/PlotWeasel_How_To_Guide_v2026-07-10.html` is the dated guide snapshot for this release.
-- `docs/FIELD_CREW_CHECKLIST_ANDROID_v2.2.8.md` is the quick field checklist.
-- `docs/releases/RELEASE_NOTES_v2.2.8.md` is the release record for Field Logger v2.2.8.
 
 ## Security and data handling
 
