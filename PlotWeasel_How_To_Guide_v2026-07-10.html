@@ -1,0 +1,741 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plot Weasel How-To Guide</title>
+  <style>
+    @page {
+      margin: 0.75in;
+    }
+
+    body {
+      color: #17211f;
+      font-family: Calibri, Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.38;
+      margin: 0;
+      background: #ffffff;
+    }
+
+    h1, h2, h3, h4 {
+      color: #183f3a;
+      font-family: Calibri, Arial, sans-serif;
+      line-height: 1.15;
+      margin: 0 0 8pt;
+    }
+
+    h1 {
+      font-size: 28pt;
+      border-bottom: 4pt solid #b07a25;
+      padding-bottom: 10pt;
+      margin-bottom: 14pt;
+    }
+
+    h2 {
+      font-size: 18pt;
+      border-bottom: 1pt solid #d7dfd9;
+      padding-bottom: 4pt;
+      margin-top: 22pt;
+    }
+
+    h3 {
+      font-size: 14pt;
+      margin-top: 16pt;
+    }
+
+    h4 {
+      color: #183f3a;
+      font-size: 12.5pt;
+      margin: 12pt 0 6pt;
+    }
+
+    p {
+      margin: 0 0 8pt;
+    }
+
+    ul, ol {
+      margin-top: 4pt;
+      margin-bottom: 10pt;
+      padding-left: 24pt;
+    }
+
+    li {
+      margin-bottom: 4pt;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 8pt 0 14pt;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1pt solid #d7dfd9;
+      padding: 6pt;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef2ef;
+      color: #183f3a;
+      font-weight: bold;
+    }
+
+    .cover {
+      border: 1pt solid #d7dfd9;
+      padding: 18pt;
+      margin-bottom: 18pt;
+      background: #f7f9f6;
+    }
+
+    .subtitle {
+      color: #34423e;
+      font-size: 14pt;
+      margin-bottom: 12pt;
+    }
+
+    .meta {
+      color: #5d6964;
+      font-size: 10.5pt;
+    }
+
+    .section-break {
+      border-top: 2pt solid #b07a25;
+      margin: 22pt 0 16pt;
+    }
+
+    .note, .warning, .checklist {
+      border-left: 5pt solid #2f705f;
+      padding: 8pt 10pt;
+      margin: 10pt 0 12pt;
+      background: #f3f6f2;
+    }
+
+    .warning {
+      border-left-color: #a95035;
+      background: #fff6f1;
+    }
+
+    .checklist {
+      border-left-color: #b07a25;
+      background: #fffaf0;
+    }
+
+    .small {
+      font-size: 10pt;
+      color: #5d6964;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <h1>Plot Weasel How-To Guide</h1>
+    <p class="subtitle">Plain-language guide for using Plot Weasel Field Logger and Plot Weasel Desktop.</p>
+    <p><strong>Current guide coverage:</strong></p>
+    <ul>
+      <li>Plot Weasel Field Logger v2.2.8, released June 16, 2026</li>
+      <li>Official Android APK: PlotWeaselFieldLogger_Ver2.2.8.apk</li>
+      <li>Plot Weasel Desktop v2.0.0, released June 4, 2026</li>
+    </ul>
+    <p class="meta">Developed by the BIA Division of Forestry, Branch of Forest Inventory &amp; Planning.</p>
+    <p class="meta">Guide updated: July 10, 2026</p>
+  </div>
+
+  <div class="note">
+    <p><strong>What this guide is for:</strong> This guide explains what each app does, how to move through the screens, what files to export, and what to do when something looks wrong. It is written for someone who has never used the apps before.</p>
+  </div>
+
+  <h2>Quick Start</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Use This App</th>
+        <th>When You Need To</th>
+        <th>Main Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Plot Weasel Field Logger</strong></td>
+        <td>Collect plot, tree, and regeneration data on an Android APK, tablet, Surface, or field computer.</td>
+        <td>Crew Package JSON, Site.csv, Tree.csv, Regen.csv, and PlotWeasel_upload.csv.</td>
+      </tr>
+      <tr>
+        <td><strong>Plot Weasel Desktop</strong></td>
+        <td>Run forestry calculations from the exported Plot Weasel Desktop CSV or a regen CSV.</td>
+        <td>Summary tables, graph files, audit files, stock tables, stand tables, crown ratio averages, and regen summaries.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Normal Workflow</h3>
+  <ol>
+    <li>On Android field tablets, install and open the official Android APK. Confirm the app header shows <strong>Local only</strong> before field use.</li>
+    <li>On Windows or Microsoft Surface devices, open the offline HTML version in Microsoft Edge.</li>
+    <li>On an office computer or any field tablet, use <strong>Plot Weasel Field Logger</strong> to enter the project name and build the project species pick list.</li>
+    <li>Export a <strong>Project Setup</strong> JSON file and copy it to each receiving crew tablet.</li>
+    <li>On each receiving tablet, import the Project Setup file, then enter that tablet's Crew Name and Crew ID.</li>
+    <li>Use <strong>Plot Weasel Field Logger</strong> on each tablet to collect field data.</li>
+    <li>At the end of the day or exam, each crew exports a <strong>Crew Package</strong>.</li>
+    <li>Each crew also exports a <strong>Backup JSON</strong> at the end of each day and before any app update, uninstall, or Clear Device Data action.</li>
+    <li>Back at the office, import all Crew Packages into one secured copy of Field Logger.</li>
+    <li>Export <strong>Site / Tree / Regen CSVs</strong> for reference and master records.</li>
+    <li>Export <strong>Plot Weasel Desktop CSV</strong> for the Desktop calculator.</li>
+    <li>Open <strong>Plot Weasel Desktop</strong>, upload the Plot Weasel Desktop CSV, choose the eco region, match the columns, and click <strong>Run</strong>.</li>
+    <li>Review the results, audit, crown ratio averages, and graphs. Download the output files.</li>
+  </ol>
+
+  <div class="warning">
+    <p><strong>Security reminder:</strong> The apps run locally and do not need internet. Do not store sensitive tribal data in cloud folders unless your policy allows it. Keep tablets and exported files secured.</p>
+  </div>
+
+  <div class="page-break"></div>
+  <h2>Part 1: Plot Weasel Field Logger</h2>
+  <p>Plot Weasel Field Logger is the field data-entry app. It is designed for Android field tablets, Samsung tablets, Microsoft Surface devices, secured Windows computers, and offline use. It stores data locally on the device until the user exports it.</p>
+
+  <h3>How To Open Field Logger</h3>
+  <p>There are two supported ways to open Field Logger: the recommended Android APK path for Android tablets, and the offline HTML path for Windows or Microsoft Surface devices.</p>
+
+  <h4>Recommended Android APK Path</h4>
+  <ol>
+    <li>Copy <strong>PlotWeaselFieldLogger_Ver2.2.8.apk</strong> to the Android tablet.</li>
+    <li>Open <strong>Files</strong>, <strong>My Files</strong>, or the approved file manager.</li>
+    <li>Tap the APK file.</li>
+    <li>If Android asks, allow installation from that source, such as Files, My Files, Chrome, Drive, or the approved file manager.</li>
+    <li>Tap <strong>Install</strong>.</li>
+    <li>Open <strong>Plot Weasel Field Logger</strong> from the app icon.</li>
+    <li>Allow <strong>Location</strong> permission while using the app. Use <strong>Precise location</strong> if Android offers that option.</li>
+    <li>Confirm the app header shows <strong>Local only</strong>.</li>
+  </ol>
+
+  <div class="warning">
+    <p><strong>Do not skip the storage check:</strong> Before real field use, create a test project, close the app completely, reopen it, and confirm the test project is still there. Restart the tablet and check again if possible.</p>
+  </div>
+
+  <h4>Windows Or Microsoft Surface HTML Path</h4>
+  <ol>
+    <li>Open the Field Logger folder or use the single-file version.</li>
+    <li>Open <strong>PlotWeasel_Field_Logger_v2.2.8.html</strong> or <strong>PlotWeasel_Field_Logger_SINGLE_FILE_v2.2.8.html</strong> in <strong>Microsoft Edge</strong>.</li>
+    <li>On Windows, double-click <strong>Launch Field Logger v2.2.8.cmd</strong> or <strong>Launch Field Logger.cmd</strong> for a simple launcher.</li>
+    <li>If the computer asks what app to use, choose Microsoft Edge or the approved browser.</li>
+  </ol>
+
+  <div class="note">
+    <p><strong>Best no-APK option:</strong> Use the normal Field Logger HTML or the single-file HTML version. In v2.2.8, both are self-contained with the app controls, style, icon, and FIA species list built into the file.</p>
+  </div>
+
+  <h4>iPhone/iPad Note</h4>
+  <div class="warning">
+    <p>For local files on iPhone or iPad, Safari and Chrome may treat the Field Logger HTML as a limited preview instead of a full app. If the page opens but Species, Trees, Regen, Add Plot, Aspect, or Slope Position do not respond, do not rely on that iPhone/iPad workflow for field collection until it has been separately tested.</p>
+  </div>
+
+  <h3>Android Storage Mode Check</h3>
+  <p>The app header may show a storage mode. Crews should understand the difference before entering real data.</p>
+  <table>
+    <thead>
+      <tr><th>Mode</th><th>Meaning</th><th>Use For Real Field Data?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Local only</strong></td><td>Data is stored locally on the device until exported or cleared.</td><td>Yes, after the close/reopen and export tests pass.</td></tr>
+      <tr><td><strong>Memory only</strong></td><td>Data is only temporary and may disappear when the app closes, reloads, crashes, or Android clears it.</td><td>No. Export Backup JSON immediately if important data was entered.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Android Updates And Uninstalling</h3>
+  <ul>
+    <li>Before installing an updated APK, export <strong>Backup JSON</strong> and confirm the backup file exists.</li>
+    <li>Do not uninstall the app before backing up data. Uninstalling can remove local project data.</li>
+    <li>APK installer files in Downloads can be deleted after installation. Deleting the installer file does not delete the installed app or its saved data.</li>
+    <li>If Android says <strong>App not installed</strong> during an update, stop and export Backup JSON before troubleshooting. The APK may have a different signing key, app identity, or version code.</li>
+  </ul>
+
+  <h3>MIT App Inventor Note</h3>
+  <p>The MIT App Inventor WebViewer wrapper can open Field Logger, but the simple WebViewer build may show <strong>Memory only</strong>. Do not use a Memory only build for real field data. For v2.2.8 Android field testing, the Android Studio-built APK is the recommended APK route.</p>
+
+  <h3>Main Screen Areas</h3>
+  <ul>
+    <li><strong>Projects:</strong> Open a saved project, start a new project, or delete the active project from that device.</li>
+    <li><strong>Field Session:</strong> Project name, crew name, and crew ID.</li>
+    <li><strong>Plots:</strong> Add a new plot and choose the current plot.</li>
+    <li><strong>Site tab:</strong> Site-level reference information.</li>
+    <li><strong>Species tab:</strong> Choose the project species list from the FIA master species list.</li>
+    <li><strong>Trees tab:</strong> Enter tree measurement records.</li>
+    <li><strong>Regen tab:</strong> Enter regeneration records.</li>
+    <li><strong>Review tab:</strong> Check warnings and errors before exporting.</li>
+    <li><strong>Export / Merge tab:</strong> Export project setup, import project setup, export field files, backup, restore, and merge crew packages.</li>
+  </ul>
+
+  <h3>Switch Between Projects</h3>
+  <p>Field Logger can keep more than one project in the same browser on the same tablet. Use the <strong>Projects</strong> panel on the left side of the app.</p>
+  <ul>
+    <li><strong>Open Project:</strong> Choose a saved project from the dropdown. The dropdown shows the project name and record counts.</li>
+    <li><strong>New Project:</strong> Starts a blank project while keeping old projects saved on the device. It keeps the current Crew Name and Crew ID, but starts with blank plots, trees, regen, and project species.</li>
+    <li><strong>Delete Project:</strong> Deletes only the active project from that device.</li>
+    <li><strong>Project box:</strong> Renames the active project. Existing records follow that rename.</li>
+    <li><strong>Clear Device Data:</strong> Removes all saved projects from that browser on that device.</li>
+  </ul>
+  <div class="note">
+    <p><strong>Before opening note:</strong> A single shared HTML file or generic home-screen icon cannot show which saved project will open before launch. After the app opens, the Projects panel shows the active project, the browser tab title includes the active project name, and the app address includes that project's ID. To make a project-specific shortcut, open Field Logger, switch to the project, then add/bookmark that page and name the shortcut after the project.</p>
+  </div>
+
+  <h3>Set Up A Field Session</h3>
+  <ol>
+    <li>Enter the <strong>Project</strong> name.</li>
+    <li>Enter the <strong>Crew Name</strong>.</li>
+    <li>Enter the <strong>Crew ID</strong>, if your team uses one.</li>
+    <li>Add the first plot number in the <strong>New plot #</strong> box and click <strong>Add</strong>.</li>
+  </ol>
+
+  <h3>Set Up The Species List</h3>
+  <p>The app starts with an empty project species list. This is intentional. Each project can have its own species dropdown.</p>
+  <ol>
+    <li>Go to the <strong>Species</strong> tab.</li>
+    <li>Search the <strong>FIA Master Species</strong> list by common name or FIA code.</li>
+    <li>Select the species and click <strong>Add Species</strong>.</li>
+    <li>Repeat until the project list has the species crews expect to use.</li>
+    <li>Use <strong>Save Species List</strong> to save one editable species list on the device.</li>
+    <li>Use <strong>Restore Saved List</strong> to reload that saved list later. Saving again overwrites the old saved copy.</li>
+    <li>Use <strong>Clear Species List</strong> if you want to empty the project dropdown.</li>
+  </ol>
+
+  <div class="note">
+    <p><strong>Adding species in the field:</strong> If a crew finds a species that was missed, go back to the Species tab, search the FIA list, and add it. The species will then appear in the Tree and Regen dropdowns. The Tree and Regen tabs no longer have a separate Add button next to Species.</p>
+  </div>
+
+  <h3>Set Up Damage Agents</h3>
+  <p>The Species tab also includes a Project Damage Agents list. Add project-specific damage agents there if the default choices are not enough. <strong>None</strong> and <strong>Broken Top</strong> stay available because they control app rules.</p>
+
+  <h3>Set Up A Project And Share It</h3>
+  <p>Use Project Setup when it is faster to build the project once on an office computer or field tablet and send the same setup to several tablets.</p>
+  <ol>
+    <li>Open Field Logger on the office computer or field tablet that will be the source setup device.</li>
+    <li>Enter the <strong>Project</strong> name.</li>
+    <li>Go to the <strong>Species</strong> tab and build the project species pick list from the FIA Master Species list.</li>
+    <li>Add any project damage agents that crews should see.</li>
+    <li>Go to <strong>Export / Merge</strong>.</li>
+    <li>Click <strong>Export Project Setup</strong>. This creates a JSON setup file.</li>
+    <li>Copy that JSON setup file to each receiving tablet using an approved local transfer method.</li>
+    <li>On each receiving tablet, open Field Logger, go to <strong>Export / Merge</strong>, and choose <strong>Import Project Setup</strong>.</li>
+    <li>After import, enter the tablet's <strong>Crew Name</strong> and <strong>Crew ID</strong>.</li>
+  </ol>
+  <div class="note">
+    <p><strong>What Project Setup includes:</strong> Project name, project species pick list, one saved species list, and damage agents. It does not include plot records, tree records, regen records, Crew Name, or Crew ID.</p>
+  </div>
+
+  <h3>Add Or Select A Plot</h3>
+  <ul>
+    <li>Use <strong>New plot #</strong> and <strong>Add</strong> to create a plot.</li>
+    <li>Use the <strong>Current Plot</strong> dropdown to switch between plots.</li>
+    <li>Any tree or regen record you save goes to the currently selected plot.</li>
+  </ul>
+
+  <h3>Enter Site Data</h3>
+  <p>The Site tab is for plot-level reference information. Plot Weasel Desktop does not use Site.csv for calculations, but the forester may need the site data for review, master records, or project notes.</p>
+  <ul>
+    <li>Fill in the fields that are available and useful.</li>
+    <li>Enter elevation as actual feet, such as 2500.</li>
+    <li>If slope is 5% or less, Aspect will only allow Level. If slope is greater than 5%, Level is not available.</li>
+    <li>At plot center, use <strong>Capture GPS 30 sec</strong> to collect device GPS fixes for about 30 seconds. The app averages the fixes and fills in whole-meter UTM Easting, UTM Northing, and UTM Zone.</li>
+    <li>If the device returns GPS altitude, the same capture fills <strong>Elevation</strong> as whole feet. Some tablets and browsers do not return altitude, so crews can still type elevation manually.</li>
+    <li><strong>GPS Fix Count</strong> is the number of location readings collected during the capture. A higher number usually means the average had more readings to work from.</li>
+    <li>The tablet must have Location turned on, and the app or browser may ask for location permission. GPS capture does not need internet or cloud sync.</li>
+    <li>If GPS does not work or a crew has coordinates from another device, type the UTM values manually.</li>
+    <li>It is okay if some site fields are blank.</li>
+    <li>The app saves site information locally as you work.</li>
+  </ul>
+
+  <h3>Enter Tree Data</h3>
+  <ol>
+    <li>Go to the <strong>Trees</strong> tab.</li>
+    <li>Use the species filter if the dropdown is long.</li>
+    <li>Select the species.</li>
+    <li>For live trees, enter DBH and height. For dead trees, DBH and height are optional unless your local protocol requires them.</li>
+    <li>Enter actual height if needed, cull, crown ratio, age, damage, decay class, live/dead status, and notes.</li>
+    <li>Decay Class uses codes 1 through 5, can only be used when the tree status is Dead, and exports as <strong>DECAYCD</strong>. The dropdown shows the code descriptions.</li>
+    <li>For DBH, values are stored and exported with one decimal place. Entering <strong>10</strong> becomes <strong>10.0</strong>, entering <strong>10.3</strong> stays <strong>10.3</strong>, and entering <strong>103</strong> becomes <strong>10.3</strong> when you leave the field.</li>
+    <li>Click <strong>Save Tree Record</strong>.</li>
+  </ol>
+
+  <div class="warning">
+    <p><strong>Tree validation rules:</strong></p>
+    <ul>
+      <li>Live tree DBH is required and must be 5.0 inches or greater.</li>
+      <li>Live tree height is required and must be 8 feet or greater.</li>
+      <li>Dead tree DBH and height are optional. If entered, they must still be valid.</li>
+      <li>Species, DBH, and height are required for tree records that will be used in the Plot Weasel Desktop calculation export.</li>
+      <li>If <strong>Broken Top</strong> is selected on a live tree, both height and actual height must be entered.</li>
+      <li>Actual height must be greater than measured height for live broken-top trees.</li>
+      <li>Dead trees require Decay Class 1 through 5. DBH and height can be blank for dead trees. Actual Height, Cull, Crown Ratio, and Age are disabled for dead trees.</li>
+      <li>If cull is entered, it must be between 0 and 100.</li>
+      <li>If crown ratio is entered, it must be between 0 and 100.</li>
+      <li>If age is entered, it must be between 0 and 1000.</li>
+    </ul>
+  </div>
+
+  <h3>Decay Class Labels</h3>
+  <table>
+    <tbody>
+      <tr><td><strong>Class 1</strong></td><td>Recently dead; bark and fine branches intact; wood hard.</td></tr>
+      <tr><td><strong>Class 2</strong></td><td>Some bark loss; fine branches gone; wood firm.</td></tr>
+      <tr><td><strong>Class 3</strong></td><td>Bark mostly gone; top often broken; wood starting to soften.</td></tr>
+      <tr><td><strong>Class 4</strong></td><td>No bark; wood soft; form degrading.</td></tr>
+      <tr><td><strong>Class 5</strong></td><td>Very soft, crumbling; snag collapsing or stump-like.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <p><strong>How Actual Height works:</strong> For normal live trees, crews enter <strong>Height</strong> and leave <strong>Actual Height</strong> alone. The app uses Height for both fields when exporting to Plot Weasel Desktop. Actual Height only turns on when a live tree is marked <strong>Broken Top</strong>. In that case, Height is the measured height to the broken top, and Actual Height is the estimated full height the tree would have had. Actual Height must be greater than Height. Dead trees do not use Actual Height.</p>
+  </div>
+
+  <h3>Enter Regeneration Data</h3>
+  <ol>
+    <li>Go to the <strong>Regen</strong> tab.</li>
+    <li>Select a species from the project species list.</li>
+    <li>Enter stem count.</li>
+    <li>Select diameter class and height class if applicable. Use 0 inch for seedlings.</li>
+    <li>Add damage notes if needed.</li>
+    <li>Click <strong>Save Regen Record</strong>.</li>
+  </ol>
+
+  <div class="warning">
+    <p><strong>Regen validation rule:</strong> If Diameter Class is 2 inch or 4 inch, Height Class must be <strong>&gt;5 ft</strong>.</p>
+  </div>
+
+  <h3>Record A Null Plot</h3>
+  <p>A null plot is a plot with no tree records. It still needs to be counted in the denominator for calculations.</p>
+  <ol>
+    <li>Add the plot number.</li>
+    <li>Fill in any site information that is available.</li>
+    <li>Do not add tree records for that plot.</li>
+    <li>Export normally.</li>
+  </ol>
+  <p>Field Logger automatically includes a plot-only null row in the Plot Weasel Desktop CSV and in Tree.csv.</p>
+
+  <h3>Use The Review Tab</h3>
+  <p>The Review tab helps catch issues before exporting.</p>
+  <ul>
+    <li><strong>Error</strong> means something should be fixed before exporting.</li>
+    <li><strong>Warning</strong> means something may be okay, but should be checked.</li>
+    <li>Click a Review item to reopen the related plot, tree, or regen record when possible.</li>
+    <li>Tree and regen review items use labels like <strong>Plot 1 Tree 2</strong> so the record is easier to find.</li>
+    <li>Use <strong>Refresh Review</strong> after changes if needed.</li>
+  </ul>
+
+  <h3>Export Files From Field Logger</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Export Button</th>
+        <th>What It Makes</th>
+        <th>When To Use It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Project Setup</strong></td>
+        <td>A JSON file containing project settings only.</td>
+        <td>Use this before field work to copy one project setup from an office computer or field tablet to several crew tablets.</td>
+      </tr>
+      <tr>
+        <td><strong>Crew Package</strong></td>
+        <td>A JSON file containing the crew's local data, settings, Crew Name, and Crew ID.</td>
+        <td>Use this at the end of the day or exam so multiple crews can be merged later. Also use this to move actual work from one tablet to another.</td>
+      </tr>
+      <tr>
+        <td><strong>Plot Weasel Desktop CSV</strong></td>
+        <td>PlotWeasel_upload.csv.</td>
+        <td>Use this file in Plot Weasel Desktop. This is the only Field Logger CSV intended for Desktop calculations.</td>
+      </tr>
+      <tr>
+        <td><strong>Save Site, Tree, Regen CSVs</strong></td>
+        <td>A local folder with Site.csv, Tree.csv, Regen.csv, and Review.txt.</td>
+        <td>Recommended on Windows Edge. Writes the Site, Tree, Regen, and Review files directly to a folder so Windows does not have to handle blocked browser downloads.</td>
+      </tr>
+      <tr>
+        <td><strong>Backup JSON</strong></td>
+        <td>A full backup of the current device data.</td>
+        <td>Use at the end of each field day and before updating, uninstalling, clearing a tablet, or transferring work.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Merge Multiple Crews</h3>
+  <ol>
+    <li>Each crew exports a <strong>Crew Package</strong>.</li>
+    <li>Move those Crew Package files to the secured office computer.</li>
+    <li>Open Field Logger on the office computer.</li>
+    <li>Go to <strong>Export / Merge</strong>.</li>
+    <li>Use <strong>Import Crew Package</strong> and select one or more crew package files.</li>
+    <li>Review the merge summary.</li>
+    <li>Use <strong>Save Site, Tree, Regen CSVs</strong> for the combined Site / Tree / Regen CSVs, then export the Plot Weasel Desktop CSV.</li>
+  </ol>
+
+  <h3>Move Work To Another Tablet</h3>
+  <p>Use this when a tablet is down but you can still open Field Logger and export its data.</p>
+  <ol>
+    <li>On the original tablet, go to <strong>Export / Merge</strong>.</li>
+    <li>Export a <strong>Crew Package</strong>.</li>
+    <li>Move that Crew Package JSON to the replacement tablet using an approved local transfer method.</li>
+    <li>On the replacement tablet, go to <strong>Export / Merge</strong> and choose <strong>Import Crew Package</strong>.</li>
+    <li>If you import one Crew Package, Field Logger uses the package's Project Name, Crew Name, and Crew ID when the receiving tablet is blank. If the receiving tablet already has different values, the app asks before changing them.</li>
+    <li>If you import multiple Crew Packages at once for office merging, Field Logger does not change the receiving device's Project Name, Crew Name, or Crew ID.</li>
+  </ol>
+
+  <div class="page-break"></div>
+  <h2>Part 2: Plot Weasel Desktop</h2>
+  <p>Plot Weasel Desktop is the calculation and reporting app. It runs locally in a browser and does not need R, Python, internet, or admin rights.</p>
+
+  <h3>How To Open Desktop</h3>
+  <ol>
+    <li>Unzip the Plot Weasel Desktop release folder.</li>
+    <li>Double-click <strong>Launch Plot Weasel Desktop v2.0.0.cmd</strong>, or open <strong>PlotWeasel_Desktop_v2.0.0.html</strong>.</li>
+    <li>If PowerShell shortcuts are blocked on a government computer, use the launch CMD file or open the HTML file directly.</li>
+  </ol>
+
+  <h3>Desktop CSV Requirements</h3>
+  <p>The exam CSV should include these columns, or columns that mean the same thing:</p>
+  <ul>
+    <li><strong>plot</strong></li>
+    <li><strong>spp</strong>, <strong>spcd</strong>, or species code</li>
+    <li><strong>dbh</strong></li>
+    <li><strong>ht</strong> or height</li>
+    <li><strong>actualht</strong>, optional</li>
+    <li><strong>cull</strong>, optional</li>
+    <li><strong>DECAYCD</strong>, optional dead-tree decay class code from 1 through 5</li>
+    <li><strong>crown_ratio</strong>, optional</li>
+    <li><strong>status</strong>, with values like live/dead or FIA-style 1/2 codes</li>
+  </ul>
+
+  <h3>Run A Desktop Calculation</h3>
+  <ol>
+    <li>Click <strong>Upload exam CSV</strong> and choose the Plot Weasel Desktop CSV.</li>
+    <li>Choose the eco region type, usually Province unless your project uses Division.</li>
+    <li>Choose the eco region code.</li>
+    <li>Check the column mapping. The app tries to match columns automatically, but the user should still confirm them.</li>
+    <li>Set BAF and DBH class width if needed.</li>
+    <li>Click <strong>Run</strong>.</li>
+    <li>Read the status banner at the top of the results area. It should say the calculation completed.</li>
+  </ol>
+
+  <h3>Understanding Eco Regions In Desktop</h3>
+  <p>Plot Weasel Desktop asks for an eco region because the NSVB coefficient tables can have region-specific rows. The selected eco region does not change the Logger records. It helps Desktop choose the best available coefficient row for the uploaded tree species.</p>
+  <ul>
+    <li><strong>Domain:</strong> the broadest ecological level. Desktop does not ask for this directly.</li>
+    <li><strong>Division:</strong> a broad ecological subdivision. Use Division when the project is defined at that level or when a Province is not available.</li>
+    <li><strong>Province:</strong> a more specific ecological unit inside a Division. Province is usually the better choice when the project has a known Bailey Province code.</li>
+  </ul>
+  <p>The USDA Forest Service Bailey ecoregion reference describes the national ecoregion framework and provides map/list pages for Domains, Divisions, and Provinces. The Forest Service page notes that these ecoregions were adopted for ecosystem management as part of the National Hierarchical Framework of Ecological Units.</p>
+  <p><strong>Reference:</strong> <a href="https://www.fs.usda.gov/land/ecosysmgmt/">USDA Forest Service - Description of the Ecoregions of the United States</a>. Useful lookup pages: <a href="https://www.fs.usda.gov/land/ecosysmgmt/colorimagemap/ecoreg1_divisions.html">Ecosystem Divisions</a> and <a href="https://www.fs.usda.gov/land/ecosysmgmt/colorimagemap/ecoreg1_provinces.html">Ecosystem Provinces</a>.</p>
+  <p>If a species is missing from Desktop outputs, check the <strong>Audit</strong> tab. A missing species can mean the uploaded CSV did not contain that species as a tree record, or that Desktop could not find the needed NSVB coefficient for the selected eco region and species.</p>
+
+  <h3>Desktop Result Tabs</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Tab</th>
+        <th>What It Shows</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Overview</strong></td>
+        <td>Main stand totals and summary cards, including stand total volume, BA/ac, and TPA.</td>
+      </tr>
+      <tr>
+        <td><strong>Graphs</strong></td>
+        <td>Selectable graph views for species TPA, species BA, DBH TPA, and DBH BA.</td>
+      </tr>
+      <tr>
+        <td><strong>Regen</strong></td>
+        <td>Tiny Weasel regeneration calculations from a regen CSV.</td>
+      </tr>
+      <tr>
+        <td><strong>Stock</strong></td>
+        <td>Combined stock table with BA, TPA, volume, standard error, and CV values.</td>
+      </tr>
+      <tr>
+        <td><strong>Stand</strong></td>
+        <td>Stand totals by DBH class.</td>
+      </tr>
+      <tr>
+        <td><strong>Crown Ratio</strong></td>
+        <td>Species crown ratio averages, including crown_ratio_mean, total_yi, and total_mi.</td>
+      </tr>
+      <tr>
+        <td><strong>Audit</strong></td>
+        <td>Run settings, dropped records, pre-check counts, null plot count, and dead-tree DECAYCD sound-volume checks.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Download Desktop Outputs</h3>
+  <ul>
+    <li>Use <strong>Download CSVs</strong> to download the full output zip.</li>
+    <li>Use <strong>Download table</strong> inside Stock, Stand, or Crown Ratio to download that specific table.</li>
+    <li>Use <strong>Download audit</strong> inside Audit to save the audit text file.</li>
+    <li>The full output zip includes CSV tables, audit text, and SVG graph files.</li>
+  </ul>
+
+  <h3>Use The Regen Tab In Desktop</h3>
+  <p>The Regen tab runs the Tiny Weasel regeneration workflow.</p>
+  <ol>
+    <li>Go to the <strong>Regen</strong> tab.</li>
+    <li>Upload a regen CSV.</li>
+    <li>Confirm the expansion factor. The default is 250.</li>
+    <li>Click <strong>Run Regen</strong>.</li>
+    <li>Use the graph tabs to view Species TPA or Species x Height.</li>
+    <li>Click <strong>Download Regen Outputs</strong> to save regen tables, graph SVGs, and the regen audit.</li>
+  </ol>
+
+  <p>The regen CSV should include:</p>
+  <ul>
+    <li><strong>plot</strong></li>
+    <li><strong>spp</strong> or species</li>
+    <li><strong>Stem Count</strong></li>
+    <li><strong>Diameter Class</strong></li>
+    <li><strong>Height Class</strong></li>
+  </ul>
+
+  <h3>Null Plots In Desktop</h3>
+  <p>Desktop includes null plots when the uploaded CSV contains a plot row with tree fields left blank. Field Logger creates those placeholder rows automatically for plots with no tree records.</p>
+  <p>The Audit tab reports how many null plots were detected.</p>
+
+  <div class="page-break"></div>
+  <h2>Troubleshooting</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Problem</th>
+        <th>What To Try</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Android app says Memory only.</td>
+        <td>Do not use that build for real field collection. Export Backup JSON immediately if important data was entered. Install the official Android Studio-built APK or rebuild from the Android source and confirm the header says Local only.</td>
+      </tr>
+      <tr>
+        <td>Android app says Local only.</td>
+        <td>This is the expected storage mode for field use. Still run the storage test: create a test project, close the app, reopen it, and confirm the project remains.</td>
+      </tr>
+      <tr>
+        <td>Android blocks the APK install.</td>
+        <td>Use the approved file manager or browser and allow install from that source when Android asks. For managed tablets, IT may need to approve or deploy the APK.</td>
+      </tr>
+      <tr>
+        <td>Android says App not installed during an update.</td>
+        <td>Export Backup JSON before uninstalling anything. The new APK may have a different signing key, app identity, or version code.</td>
+      </tr>
+      <tr>
+        <td>The tablet asks which app to use.</td>
+        <td>Choose the normal browser. Android treats a loose HTML file like a document unless an APK wrapper is used.</td>
+      </tr>
+      <tr>
+        <td>The app icon looks like a browser or document icon.</td>
+        <td>The browser tab and home-screen manifest use the paw icon, but Android file managers may still show a generic document icon for loose HTML files.</td>
+      </tr>
+      <tr>
+        <td>A Python or firewall/admin popup appears during testing.</td>
+        <td>Cancel it. The shareable app does not need Python. That popup usually comes from a local preview server used during testing.</td>
+      </tr>
+      <tr>
+        <td>Species are not showing in the Tree or Regen dropdown.</td>
+        <td>Go to the Species tab and add species from the FIA Master Species list. Each project starts with an empty species pick list.</td>
+      </tr>
+      <tr>
+        <td>A tablet needs the same project species list as another tablet or office computer.</td>
+        <td>On the source device, use Export Project Setup. On the receiving tablet, use Import Project Setup. Then enter that tablet's Crew Name and Crew ID.</td>
+      </tr>
+      <tr>
+        <td>DBH will not save.</td>
+        <td>For live trees, check that DBH is 5.0 inches or greater. Dead trees can leave DBH blank. DBH exports with one decimal place when entered. Typing 10 becomes 10.0, and typing an implied decimal value such as 103 becomes 10.3.</td>
+      </tr>
+      <tr>
+        <td>Broken Top will not save.</td>
+        <td>For live trees, enter both height and actual height. Actual height must be greater than measured height. Dead trees do not require actual height.</td>
+      </tr>
+      <tr>
+        <td>A dead tree will not save.</td>
+        <td>Select Decay Class 1 through 5. DBH and height can be blank for dead trees. Actual Height, Cull, Crown Ratio, and Age are disabled for dead trees.</td>
+      </tr>
+      <tr>
+        <td>A regen record with 2 inch or 4 inch diameter will not save.</td>
+        <td>Select the &gt;5 ft height class.</td>
+      </tr>
+      <tr>
+        <td>Desktop says required columns are missing.</td>
+        <td>Check the column mapping dropdowns. Make sure plot, species code, DBH, height, and status are mapped.</td>
+      </tr>
+      <tr>
+        <td>Desktop does not include a plot with no trees.</td>
+        <td>Make sure the CSV includes a plot-only row with blank tree fields. Field Logger creates this row automatically for plots with no tree records.</td>
+      </tr>
+      <tr>
+        <td>Field Logger opens, but tabs, Add Plot, Aspect, or Slope Position do not work.</td>
+        <td>Open the v2.2.8 self-contained Field Logger HTML in Microsoft Edge from local device storage. Do not assume Safari or Chrome will be available from the Files app for local HTML files.</td>
+      </tr>
+      <tr>
+        <td>Windows says the Site / Tree / Regen export is harmful.</td>
+        <td>Use <strong>Save Site, Tree, Regen CSVs</strong> in Microsoft Edge. The older browser-download buttons were removed because Windows can block those downloads.</td>
+      </tr>
+      <tr>
+        <td>Graphs do not download as PNG.</td>
+        <td>The browser app exports SVG graph files. SVG files open in browsers, Microsoft Edge, many image tools, and can be inserted into documents.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Plain-English File Glossary</h2>
+  <ul>
+    <li><strong>Android APK:</strong> The installable Android app file. For this release, the official APK is PlotWeaselFieldLogger_Ver2.2.8.apk.</li>
+    <li><strong>APK installer file:</strong> The file tapped to install the app. It can be deleted from Downloads after installation without deleting the installed app or app data.</li>
+    <li><strong>Local only:</strong> Expected app storage mode. Data is stored locally on the device until exported or cleared.</li>
+    <li><strong>Memory only:</strong> Temporary storage mode. Do not use for real field collection because data may disappear when the app closes or reloads.</li>
+    <li><strong>Project Setup:</strong> A JSON file used to copy project settings from one Field Logger device to crew tablets. It does not contain field records.</li>
+    <li><strong>Crew Package:</strong> A JSON file used to move one crew's field data into another copy of Field Logger for merging or tablet replacement. It includes field records plus Crew Name and Crew ID.</li>
+    <li><strong>PlotWeasel_upload.csv:</strong> The CSV that goes into Plot Weasel Desktop.</li>
+    <li><strong>Site.csv:</strong> Site-level reference information, including UTM/GPS fields when captured. Desktop does not use this for calculations.</li>
+    <li><strong>Tree.csv:</strong> Tree-level data for reference and master records. It includes plot-only null rows for plots with no tree records.</li>
+    <li><strong>Regen.csv:</strong> Regeneration records for reference, master records, or Tiny Weasel regen calculations.</li>
+    <li><strong>Review.txt:</strong> Review messages from Field Logger.</li>
+    <li><strong>data_audit.txt:</strong> Desktop audit details for the calculation run.</li>
+    <li><strong>SVG graph files:</strong> Browser-generated graph files included in Desktop output zips.</li>
+  </ul>
+
+  <div class="page-break"></div>
+  <h2>Guide Maintenance Checklist</h2>
+  <div class="checklist">
+    <p><strong>Use this checklist every time the apps are updated.</strong> The guide should be reviewed before each new release zip is shared.</p>
+  </div>
+  <ul>
+    <li>Update the Desktop version number and release date.</li>
+    <li>Update the Field Logger version number and release date.</li>
+    <li>Add any new buttons, tabs, validation rules, or exports.</li>
+    <li>Remove instructions for features that were removed.</li>
+    <li>Check the normal workflow still matches the current app behavior.</li>
+    <li>Check the troubleshooting section for new common questions.</li>
+    <li>Open this HTML file in Microsoft Word and confirm the headings, tables, and bullets look clean.</li>
+    <li>Save a fresh copy of the guide in the output folder with the current update date.</li>
+    <li>Update the official APK filename and SHA-256 checksum in README, release notes, and GitHub Releases.</li>
+    <li>Confirm the Android APK installs and shows Local only before sharing it with crews.</li>
+    <li>Confirm Backup JSON and Plot Weasel Desktop CSV export work on the target tablet.</li>
+    <li>Do not include .jks signing keys, keystore passwords, or key passwords in GitHub or release zip files.</li>
+  </ul>
+
+  <h2>Credits</h2>
+  <p>Created by Casey Sigg, Steve Singleton, and Chris LaCroix with the USDI BIA Division of Forestry, Branch of Inventory and Planning.</p>
+  <ul>
+    <li>Casey Sigg created the Plot Weasel Desktop R script, which is the calculation engine and scientific foundation for Plot Weasel Desktop.</li>
+    <li>Steve Singleton created the field and master workbook templates that guided the Plot Weasel Field Logger structure and exports.</li>
+    <li>Chris LaCroix did the vibe coding that turned the script, templates, and workflow into the Plot Weasel Desktop and Plot Weasel Field Logger.</li>
+  </ul>
+</body>
+</html>
+
+
+
+
