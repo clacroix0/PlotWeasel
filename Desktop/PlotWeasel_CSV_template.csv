@@ -1,0 +1,4 @@
+plot,spp,dbh,ht,actualht,cull,DECAYCD,crown_ratio,status
+1,202,12.4,78,78,0,35,live
+1,122,9.1,64,64,5,40,live
+2,202,15.8,88,82,10,25,dead

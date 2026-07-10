@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plot Weasel Desktop v2.0.0 | BIA Forest Inventory</title>
+  <link rel="icon" href="assets/weasel.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="assets/weasel.ico">
+  <link rel="apple-touch-icon" href="assets/weasel.png">
+  <link rel="stylesheet" href="assets/app.css">
+  <script defer src="assets/nsvb-data.js"></script>
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <img src="assets/weasel.svg" alt="" class="app-icon">
+    <div>
+      <p class="eyebrow">U.S. Department of the Interior | Bureau of Indian Affairs</p>
+      <div class="title-row">
+        <h1>Plot Weasel Desktop</h1>
+        <span class="version-pill">v2.0.0</span>
+        <span class="release-pill">Released June 4, 2026</span>
+      </div>
+      <p class="subtitle">Forest inventory stock, stand, and NSVB volume calculator</p>
+      <p class="team-credit">Developed by the BIA Division of Forestry, Branch of Forest Inventory &amp; Planning.</p>
+    </div>
+  </header>
+
+  <main class="app-layout">
+    <aside class="control-panel" aria-label="Run settings">
+      <form id="runForm">
+        <label class="file-drop" for="csvFile">
+          <span class="file-drop-title">Upload cruise CSV</span>
+          <span id="fileStatus" class="file-drop-detail">Choose a .csv file</span>
+          <input id="csvFile" name="csvFile" type="file" accept=".csv,text/csv">
+        </label>
+
+        <div class="field-group">
+          <span class="field-label">Eco region type</span>
+          <div class="segmented" role="radiogroup" aria-label="Eco region type">
+            <label>
+              <input type="radio" name="ecoRegionType" value="PROVINCE" checked>
+              <span>Province</span>
+            </label>
+            <label>
+              <input type="radio" name="ecoRegionType" value="DIVISION">
+              <span>Division</span>
+            </label>
+          </div>
+        </div>
+
+        <label class="field">
+          <span class="field-label">Eco region</span>
+          <select id="ecoRegionCode"></select>
+        </label>
+
+        <div class="settings-grid">
+          <label class="field">
+            <span class="field-label">BAF</span>
+            <input id="baf" type="number" min="0.01" step="0.01" value="20">
+          </label>
+          <label class="field">
+            <span class="field-label">DBH class width</span>
+            <input id="dbhClassWidth" type="number" min="0.5" step="0.5" value="2">
+          </label>
+        </div>
+
+        <section class="column-panel" aria-label="CSV column matching">
+          <div class="panel-heading-row">
+            <h2>CSV columns</h2>
+            <button id="templateBtn" type="button" class="text-button">Template CSV</button>
+          </div>
+          <div class="mapping-grid">
+            <label class="field">
+              <span class="field-label">Plot</span>
+              <select id="plotCol" data-column-select data-required="true"></select>
+            </label>
+            <label class="field">
+              <span class="field-label">Species code</span>
+              <select id="speciesCol" data-column-select data-required="true"></select>
+            </label>
+            <label class="field">
+              <span class="field-label">DBH</span>
+              <select id="dbhCol" data-column-select data-required="true"></select>
+            </label>
+            <label class="field">
+              <span class="field-label">Height</span>
+              <select id="heightCol" data-column-select data-required="true"></select>
+            </label>
+            <label class="field">
+              <span class="field-label">Actual height</span>
+              <select id="actualHeightCol" data-column-select></select>
+            </label>
+            <label class="field">
+              <span class="field-label">Cull percent</span>
+              <select id="cullCol" data-column-select></select>
+            </label>
+            <label class="field">
+              <span class="field-label">Decay class</span>
+              <select id="decayCol" data-column-select></select>
+            </label>
+            <label class="field">
+              <span class="field-label">Crown ratio</span>
+              <select id="crownRatioCol" data-column-select></select>
+            </label>
+            <label class="field">
+              <span class="field-label">Status</span>
+              <select id="statusCol" data-column-select data-required="true"></select>
+            </label>
+          </div>
+        </section>
+
+        <div class="action-row">
+          <button id="runBtn" type="submit" class="primary-button" disabled>Run</button>
+          <button id="resetBtn" type="button" class="secondary-button">Reset</button>
+        </div>
+      </form>
+    </aside>
+
+    <section class="results-panel" aria-label="Results">
+      <div id="statusBanner" class="status-banner">
+        <strong>Ready</strong>
+        <span>Upload a cruise CSV to begin.</span>
+      </div>
+
+      <div id="summaryCards" class="summary-grid" aria-live="polite"></div>
+
+      <div class="tabs" role="tablist" aria-label="Result views">
+        <button class="tab is-active" type="button" role="tab" aria-selected="true" data-tab="overview">Overview</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="graphs">Graphs</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="regen">Regen</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="stock">Stock</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="stand">Stand</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="crownRatio">Crown Ratio</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="audit">Audit</button>
+        <button id="downloadAllBtn" class="tab download-tab" type="button" disabled>Download CSVs</button>
+      </div>
+
+      <section id="overview" class="tab-panel is-active" role="tabpanel">
+        <div id="overviewDetail" class="overview-detail"></div>
+      </section>
+
+      <section id="graphs" class="tab-panel" role="tabpanel" hidden>
+        <div class="graph-tabs" role="tablist" aria-label="Graph views">
+          <button class="graph-tab is-active" type="button" role="tab" aria-selected="true" data-graph="speciesTpaGraph">Species TPA</button>
+          <button class="graph-tab" type="button" role="tab" aria-selected="false" data-graph="speciesBaGraph">Species BA</button>
+          <button class="graph-tab" type="button" role="tab" aria-selected="false" data-graph="dbhTpaGraph">DBH TPA</button>
+          <button class="graph-tab" type="button" role="tab" aria-selected="false" data-graph="dbhBaGraph">DBH BA</button>
+        </div>
+        <div id="speciesTpaGraph" class="graph-panel is-active" role="tabpanel">
+          <div id="speciesTpaChart" class="chart-card graph-card"></div>
+        </div>
+        <div id="speciesBaGraph" class="graph-panel" role="tabpanel" hidden>
+          <div id="speciesBaChart" class="chart-card graph-card"></div>
+        </div>
+        <div id="dbhTpaGraph" class="graph-panel" role="tabpanel" hidden>
+          <div id="dbhTpaChart" class="chart-card graph-card"></div>
+        </div>
+        <div id="dbhBaGraph" class="graph-panel" role="tabpanel" hidden>
+          <div id="dbhBaChart" class="chart-card graph-card"></div>
+        </div>
+      </section>
+
+      <section id="regen" class="tab-panel" role="tabpanel" hidden>
+        <div class="regen-workbench">
+          <section class="regen-controls">
+            <label class="file-drop" for="regenCsvFile">
+              <span class="file-drop-title">Upload regen CSV</span>
+              <span id="regenFileStatus" class="file-drop-detail">Choose a .csv file</span>
+              <input id="regenCsvFile" name="regenCsvFile" type="file" accept=".csv,text/csv">
+            </label>
+            <div class="settings-grid">
+              <label class="field">
+                <span class="field-label">Expansion factor</span>
+                <input id="regenExpansionFactor" type="number" min="1" step="1" value="250">
+              </label>
+              <div class="regen-actions">
+                <button id="regenRunBtn" type="button" class="primary-button" disabled>Run Regen</button>
+                <button id="regenDownloadBtn" type="button" class="secondary-button" disabled>Download Regen Outputs</button>
+              </div>
+            </div>
+          </section>
+
+          <div id="regenSummaryCards" class="summary-grid"></div>
+
+          <div class="graph-tabs" role="tablist" aria-label="Regen graph views">
+            <button class="graph-tab is-active" type="button" role="tab" aria-selected="true" data-regen-graph="regenSpeciesGraph">Species TPA</button>
+            <button class="graph-tab" type="button" role="tab" aria-selected="false" data-regen-graph="regenHeightGraph">Species x Height</button>
+          </div>
+          <div id="regenSpeciesGraph" class="graph-panel is-active" role="tabpanel">
+            <div id="regenSpeciesChart" class="chart-card graph-card"></div>
+          </div>
+          <div id="regenHeightGraph" class="graph-panel" role="tabpanel" hidden>
+            <div id="regenHeightChart" class="chart-card graph-card"></div>
+          </div>
+
+          <div class="table-toolbar">
+            <h2>Regen summaries</h2>
+          </div>
+          <div class="regen-table-grid">
+            <div id="regenOverallTable" class="table-wrap"></div>
+            <div id="regenSpeciesTable" class="table-wrap"></div>
+          </div>
+          <div id="regenHeightTable" class="table-wrap"></div>
+          <div id="regenAuditReport" class="audit-report"></div>
+        </div>
+      </section>
+
+      <section id="stock" class="tab-panel" role="tabpanel" hidden>
+        <div class="table-toolbar">
+          <h2>Combined stock table</h2>
+          <button id="stockCsvBtn" type="button" class="secondary-button" disabled>Download table</button>
+        </div>
+        <div id="stockTable" class="table-wrap"></div>
+      </section>
+
+      <section id="stand" class="tab-panel" role="tabpanel" hidden>
+        <div class="table-toolbar">
+          <h2>Stand totals by DBH class</h2>
+          <button id="standCsvBtn" type="button" class="secondary-button" disabled>Download table</button>
+        </div>
+        <div id="standTable" class="table-wrap"></div>
+      </section>
+
+      <section id="crownRatio" class="tab-panel" role="tabpanel" hidden>
+        <div class="table-toolbar">
+          <h2>Species crown ratio averages</h2>
+          <button id="crownRatioCsvBtn" type="button" class="secondary-button" disabled>Download table</button>
+        </div>
+        <div id="crownRatioTable" class="table-wrap"></div>
+      </section>
+
+      <section id="audit" class="tab-panel" role="tabpanel" hidden>
+        <div class="table-toolbar">
+          <h2>Data audit</h2>
+          <button id="auditTxtBtn" type="button" class="secondary-button" disabled>Download audit</button>
+        </div>
+        <div id="auditReport" class="audit-report"></div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
