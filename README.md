@@ -50,8 +50,8 @@ Do not use a build that shows `Memory only` for real field data.
 plot-weasel/
 ├── README.md
 ├── .gitignore
-├── field-logger/
-├── desktop/
+├── FieldLogger/
+├── Desktop/
 ```
 
 ## Documentation
