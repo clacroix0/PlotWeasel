@@ -51,11 +51,8 @@ plot-weasel/
 ├── README.md
 ├── CHANGELOG.md
 ├── .gitignore
-├── LICENSE_PENDING.md
-├── docs/
 ├── field-logger/
 ├── desktop/
-└── shared/
 ```
 
 ## Documentation
