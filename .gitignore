@@ -1,0 +1,32 @@
+# Android/Gradle build output
+.gradle/
+build/
+app/build/
+field-logger/android/.gradle/
+field-logger/android/build/
+field-logger/android/app/build/
+
+# Local Android Studio machine settings
+local.properties
+.idea/
+*.iml
+
+# Signing keys and secrets
+*.jks
+*.keystore
+keystore.properties
+*.pem
+*.p12
+*.key
+
+# APK/AAB outputs
+*.apk
+*.aab
+
+# Logs and temp files
+*.log
+*.tmp
+
+# OS clutter
+.DS_Store
+Thumbs.db
