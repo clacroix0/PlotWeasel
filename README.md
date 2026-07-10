@@ -49,7 +49,6 @@ Do not use a build that shows `Memory only` for real field data.
 ```text
 plot-weasel/
 ├── README.md
-├── CHANGELOG.md
 ├── .gitignore
 ├── field-logger/
 ├── desktop/
