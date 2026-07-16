@@ -6,7 +6,7 @@ Plot Weasel is an offline forestry field data collection and calculation workflo
 
 | Component | Current version | Notes |
 |---|---:|---|
-| Plot Weasel Field Logger | v2.2.8 | Android Studio-built APK recommended for Android tablets. |
+| Plot Weasel Field Logger | v2.2.9 | Android Studio-built APK recommended for Android tablets. |
 | Plot Weasel Desktop | v2.0.0 | Browser-based desktop calculation and reporting app. |
 
 ## Normal workflow
@@ -27,7 +27,7 @@ The official Android APK for Field Logger v2.2.8 is distributed through GitHub R
 Expected APK filename:
 
 ```text
-PlotWeaselFieldLogger_Ver2.2.8.apk
+PlotWeaselFieldLogger_v2.2.9Android.apk
 ```
 
 Expected SHA-256 checksum:
@@ -58,7 +58,7 @@ plot-weasel/
 ## Documentation
 
 Key document is in `plotweasel/`.
-- `docs/releases/PlotWeasel_How_To_Guide_v2026-07-10.html` is the dated guide snapshot for this release.
+- `docs/releases/PlotWeasel_How_To_Guide.html` is the dated guide snapshot for this release.
 
 ## Security and data handling
 
